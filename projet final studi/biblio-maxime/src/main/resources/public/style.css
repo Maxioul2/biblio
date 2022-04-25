@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+form {
+    display: table;
+}
+
+.formItem {
+    display: table-row;
+}
+
+label, input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.infosItem {
+    display: flex;
+}
+
+.searchFilter {
+    display: inline-block;
+    padding-right: 10px;
+}
