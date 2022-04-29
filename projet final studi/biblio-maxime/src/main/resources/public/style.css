@@ -30,3 +30,7 @@ label {
     display: inline-block;
     padding-right: 10px;
 }
+
+.statsitem {
+    display: flex;
+}

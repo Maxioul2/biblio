@@ -89,7 +89,7 @@ public class Main {
         result += "<option value=\"Horreur\">Horreur</option>";
         result += "<option value=\"Policier\">Policier</option>";
         result += "<option value=\"Romance\">Romance</option>";
-        result += "<option value=\"Science-Fiction\">Science-Fiction</option>";
+        result += "<option value=\"Science-fiction\">Science-Fiction</option>";
         result += "</select>";
         result += "</div>";
         result += "<div class=\"searchFilter\">";
@@ -259,6 +259,21 @@ public class Main {
         result += "<div class=\"formItem\"><label for=\"password\">Nouveau mot de passe : </label><input type=\"password\" name=\"password\" required></div>";
         result += "<div class=\"formItem\"><label for=\"passwordConfirmation\">Confirmation du mot de passe : </label><input type=\"password\" name=\"passwordConfirmation\" required></div>";
         result += "<input type=\"submit\" value=\"Valider les modifications\">";
+        result += "</body>";
+        return result;
+    }
+
+    @RequestMapping("/stats")
+    @ResponseBody
+    String stats(HttpServletRequest request) {
+        String result = header(request);
+        result += "<div class=\"stats\">";
+        // Ne fonctionne pas
+        //result += "<div class=\"statsItem\"><label>Livre le plus emprunté : </label><span>" + DB.getLivrePopulaire().getTitre() + "</span></div>";
+        //result += "<div class=\"statsItem\"><label>Livre le moins emprunté : </label><span>" + DB.getLivreImpopulaire().getTitre() + "</span></div>";
+        result += "<div class=\"statsItem\"><label>Nombre d'utilisateurs : </label><span>" + DB.getNbUsers() + "</span></div>";
+        result += "<div class=\"statsItem\"><label>Nombre de prêts : </label><span>" + DB.getNbPrets() + "</span></div>";
+        result += "</div>";
         result += "</body>";
         return result;
     }

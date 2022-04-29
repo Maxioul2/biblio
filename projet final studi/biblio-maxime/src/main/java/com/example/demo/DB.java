@@ -343,6 +343,124 @@ public class DB {
     }
 
 
+    public static Livre getLivrePopulaire() {
+        Connection conn = connect();
+        Livre livre = null;
+        if (conn != null) {
+            // Récupération du livre avec le plus de prêts
+            String sql = "SELECT livre.isbn, livre.titre, auteur.nom AS auteur, editeur.nom AS editeur, livre.date_publication, livre.langue, genre.nom AS genre FROM pret "
+            + "LEFT JOIN exemplaire ON pret.exemplaire_id = exemplaire.id "
+            + "LEFT JOIN livre ON livre.isbn = exemplaire.isbn "
+            + "LEFT JOIN editeur ON livre.editeur_id = editeur.id "
+            + "LEFT JOIN livre_genre ON livre.isbn = livre_genre.isbn "
+            + "LEFT JOIN genre ON livre_genre.nom = genre.nom "
+            + "LEFT JOIN livre_auteur ON livre_auteur.isbn = livre.isbn "
+            + "LEFT JOIN auteur ON livre_auteur.auteur_id = auteur.id "
+            + "LIMIT 1";
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    livre = new Livre(rs.getString("isbn"), rs.getString("titre"), rs.getString("auteur"), rs.getString("editeur"), rs.getString("date_publication"), rs.getString("langue"), rs.getString("genre"));
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQLException: " + ex.getMessage());
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        }
+        return livre;
+    }
+
+
+    public static Livre getLivreImpopulaire() {
+        Connection conn = connect();
+        Livre livre = null;
+        if (conn != null) {
+            // Récupération du livre avec le moins de prêts
+            String sql = "SELECT livre.isbn, livre.titre, auteur.nom AS auteur, editeur.nom AS editeur, livre.date_publication, livre.langue, genre.nom AS genre FROM pret "
+            + "LEFT JOIN editeur ON livre.editeur_id = editeur.id "
+            + "LEFT JOIN exemplaire ON pret.exemplaire_id = exemplaire.id "
+            + "LEFT JOIN livre ON livre.isbn = exemplaire.isbn "
+            + "LEFT JOIN livre_genre ON livre.isbn = livre_genre.isbn "
+            + "LEFT JOIN genre ON livre_genre.nom = genre.nom "
+            + "LEFT JOIN livre_auteur ON livre_auteur.isbn = livre.isbn "
+            + "LEFT JOIN auteur ON livre_auteur.auteur_id = auteur.id "
+            + "LIMIT 1";
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    livre = new Livre(rs.getString("isbn"), rs.getString("titre"), rs.getString("auteur"), rs.getString("editeur"), rs.getString("date_publication"), rs.getString("langue"), rs.getString("genre"));
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQLException: " + ex.getMessage());
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        }
+        return livre;
+    }
+
+
+    public static int getNbUsers() {
+        Connection conn = connect();
+        int nbUsers = 0;
+        if (conn != null) {
+            String sql = "SELECT COUNT(*) AS nbUsers FROM utilisateur";
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    nbUsers = rs.getInt("nbUsers");
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQLException: " + ex.getMessage());
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        }
+        return nbUsers;
+    }
+
+
+    public static int getNbPrets() {
+        Connection conn = connect();
+        int nbPrets = 0;
+        if (conn != null) {
+            String sql = "SELECT COUNT(*) AS nbPrets FROM pret";
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    nbPrets = rs.getInt("nbPrets");
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQLException: " + ex.getMessage());
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        }
+        return nbPrets;
+    }
+
+
     /** 
      * Envoi d'un mail à tous les utilisateurs qui ont un prêt
      */
