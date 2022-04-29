@@ -6,3 +6,5 @@ Vous trouverez la copie avec des explications plus approfondies dans le fichier 
 Afin de tester l'application, vous pouvez vous rendre à cette adresse : https://biblio-maxime.herokuapp.com/ et utiliser ces logs de connexion pour voir le fonctionnement des prêts avec un compte qui en possède :
 Adresse mail : maximemaronet@yahoo.fr
 Mot de passe : test
+
+Le batch de relance pour les prêts est disponible directement depuis le site à cette adresse : https://biblio-maxime.herokuapp.com/mailBatch. Le but étant à terme de le rendre accessible depuis la partie administrateur du site.
