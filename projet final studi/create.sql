@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS exemplaire (
 CREATE TABLE IF NOT EXISTS pret (
     id SERIAL PRIMARY KEY,
     date_debut DATE NOT NULL,
-    date_fin VARCHAR,
+    date_fin DATE NOT NULL,
     renouvele BOOLEAN NOT NULL,
     utilisateur_id INTEGER NOT NULL,
     exemplaire_id INTEGER NOT NULL,
