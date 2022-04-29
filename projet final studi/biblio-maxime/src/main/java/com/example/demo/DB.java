@@ -321,6 +321,28 @@ public class DB {
     }
 
 
+    public static void renouvelerPret(int userId, String isbn) {
+        Connection conn = connect();
+        if (conn != null) {
+            String sql = "UPDATE pret SET renouvele = true, date_fin = date_fin + 14 WHERE utilisateur_id = ? AND exemplaire_id = (SELECT id FROM exemplaire WHERE isbn = ?)";
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, userId);
+                pstmt.setString(2, isbn);
+                pstmt.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("SQLException: " + ex.getMessage() + "\nquery: " + sql);
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        }
+    }
+
+
     /** 
      * Envoi d'un mail à tous les utilisateurs qui ont un prêt
      */
@@ -345,6 +367,14 @@ public class DB {
     }
 
 
+    
+    /** 
+     * Système d'envoi de mail
+     * @param mail
+     * @param subject
+     * @param message
+     * @throws MessagingException
+     */
     private static void sendMail(String mail, String subject, String message) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

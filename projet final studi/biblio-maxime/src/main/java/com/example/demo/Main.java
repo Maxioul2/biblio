@@ -205,6 +205,11 @@ public class Main {
                         result += "<b>Prêt renouvelé</b></p>";
                     } else {
                         result += "<b>Prêt non renouvelé</b></p>";
+                        result += "<form action=\"/renouvelerPretServlet\" method=\"post\">";
+                        result += "<input type=\"hidden\" name=\"userId\" value=\"" + pret.getUserId() + "\"/>";
+                        result += "<input type=\"hidden\" name=\"isbn\" value=\"" + pret.getLivre().getIsbn() + "\"/>";
+                        result += "<input type=\"submit\" value=\"Renouveler le prêt\">";
+                        result += "</form>";
                     }
                 } catch (NullPointerException e) {
                     result += "<p>Aucun résultat</p>";
@@ -344,6 +349,14 @@ public class Main {
 
         DB.editUser(email, lastName, firstName, password, id);
         response.sendRedirect("/infos");
+    }
+
+    @RequestMapping("/renouvelerPretServlet")
+    void renouvelerPretServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int userId = (int)request.getSession().getAttribute("id");
+        String isbn = request.getParameter("isbn");
+        DB.renouvelerPret(userId, isbn);
+        response.sendRedirect("/prets");
     }
 
     public static void main(String[] args) {
