@@ -15,7 +15,7 @@ public class Pret {
         this.renouvele = renouvele;
     }
 
-    public int getUser_id() {
+    public int getUserId() {
         return user_id;
     }
 
@@ -23,11 +23,11 @@ public class Pret {
         return livre;
     }
 
-    public String getDate_debut() {
+    public String getDateDebut() {
         return date_debut;
     }
 
-    public String getDate_fin() {
+    public String getDateFin() {
         return date_fin;
     }
 

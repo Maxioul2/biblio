@@ -17,6 +17,12 @@ import org.springframework.stereotype.*;
 @SpringBootApplication
 public class Main {
 
+    
+    /** 
+     * Header de chaque page du site
+     * @param request
+     * @return String
+     */
     private String header(HttpServletRequest request) {
         String result = "<head><title>Biblio</title><meta charset=\"UTF-8\"><link rel=\"stylesheet\" href=\"style.css\"></head><body>";
         result += "<div class=\"header\"><h2>Biblio</h2>";
@@ -34,6 +40,12 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Page d'accueil du site
+     * @param request
+     * @return String
+     */
     @RequestMapping("/")
     @ResponseBody
     String home(HttpServletRequest request) {
@@ -43,6 +55,15 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Page de recherche de livres
+     * @param request
+     * @param response
+     * @return String
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/browse")
     @ResponseBody
     String browse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -114,6 +135,12 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Formulaire de connexion
+     * @param request
+     * @return String
+     */
     @RequestMapping("/login")
     @ResponseBody
     String login(HttpServletRequest request) {
@@ -126,6 +153,12 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Formulaire de création de compte
+     * @param request
+     * @return String
+     */
     @RequestMapping("/register")
     @ResponseBody
     String register(HttpServletRequest request) {
@@ -142,12 +175,17 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Page répertoriant les prets en cours de l'utilisateur
+     * @param request
+     * @return String
+     */
     @RequestMapping("/prets")
     @ResponseBody
     String prets(HttpServletRequest request) {
         String result = header(request);
         ArrayList<Pret> prets = DB.getPrets((int)request.getSession().getAttribute("id"));
-        // TODO : afficher les livres empruntés
         if (prets.size() == 0) {
             result += "<p>Aucun résultat</p>";
         } else {
@@ -161,8 +199,8 @@ public class Main {
                     result += "Genre : " + pret.getLivre().getGenre() + "<br>";
                     result += "Date de publication : " + pret.getLivre().getDatePublication() + "<br>";
                     result += "Éditeur : " + pret.getLivre().getEditeur() + "<br>";
-                    result += "<b>Début du prêt : " + pret.getDate_debut() + "</b><br>";
-                    result += "<b>Fin du prêt : " + pret.getDate_fin() + "</b><br>";
+                    result += "<b>Début du prêt : " + pret.getDateDebut() + "</b><br>";
+                    result += "<b>Fin du prêt : " + pret.getDateFin() + "</b><br>";
                     if (pret.isRenouvele()) {
                         result += "<b>Prêt renouvelé</b></p>";
                     } else {
@@ -177,6 +215,12 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Page d'informations de l'utilisateur
+     * @param request
+     * @return String
+     */
     @RequestMapping("/infos")
     @ResponseBody
     String infos(HttpServletRequest request) {
@@ -192,6 +236,12 @@ public class Main {
         return result;
     }
 
+    
+    /** 
+     * Formulaire de modification des informations de l'utilisateur
+     * @param request
+     * @return String
+     */
     @RequestMapping("/EditInfos")
     @ResponseBody
     String editInfos(HttpServletRequest request) {
@@ -201,11 +251,29 @@ public class Main {
         result += "<div class=\"formItem\"><label for=\"lastName\">Nom : </label><input type=\"text\" name=\"lastName\" value=\"" + infos[0] + "\" required></div>";
         result += "<div class=\"formItem\"><label for=\"firstName\">Prénom : </label><input type=\"text\" name=\"firstName\" value=\"" + infos[1] + "\" required></div>";
         result += "<div class=\"formItem\"><label for=\"email\">E-mail : </label><input type=\"text\" name=\"email\" value=\"" + infos[2] + "\" required></div>";
+        result += "<div class=\"formItem\"><label for=\"password\">Nouveau mot de passe : </label><input type=\"password\" name=\"password\" required></div>";
+        result += "<div class=\"formItem\"><label for=\"passwordConfirmation\">Confirmation du mot de passe : </label><input type=\"password\" name=\"passwordConfirmation\" required></div>";
         result += "<input type=\"submit\" value=\"Valider les modifications\">";
         result += "</body>";
         return result;
     }
 
+    @RequestMapping("/mailBatch")
+    @ResponseBody
+    String mailBatch(HttpServletRequest request) {
+        String result = header(request);
+        DB.mailBatch();
+        result += "<p>Mails envoyés</p>";
+        return result;
+    }
+
+    
+    /** 
+     * Permet de se déconnecter
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping("/logout")
     @ResponseBody
     void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -214,6 +282,14 @@ public class Main {
         response.sendRedirect("/");
     }
 
+    
+    /** 
+     * Permet de récupérer les informations du formulaire d'inscription
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/registerServlet")
     void registerServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("registerServlet");
@@ -228,8 +304,16 @@ public class Main {
         response.sendRedirect("/login");
     }
 
+    
+    /** 
+     * Permet de se connecter via l'email et le mot de passe
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/loginServlet")
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void loginServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         int id = DB.checkUser(email, password);
@@ -242,13 +326,23 @@ public class Main {
         }
     }
 
+    
+    /** 
+     * Permet d'éditer les informations d'un utilisateur
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/EditInfosServlet")
     void editInfosServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getSession().getAttribute("email").toString(); // Attention l'e-mail n'est pas modifiable
+        String email = request.getParameter("email");
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
+        String password = request.getParameter("password");
+        int id = (int)request.getSession().getAttribute("id");
 
-        DB.editUser(email, lastName, firstName);
+        DB.editUser(email, lastName, firstName, password, id);
         response.sendRedirect("/infos");
     }
 
