@@ -8,3 +8,5 @@ Adresse mail : maximemaronet@yahoo.fr
 Mot de passe : test
 
 Le batch de relance pour les prêts est disponible directement depuis le site à cette adresse : https://biblio-maxime.herokuapp.com/mailBatch. Le but étant à terme de le rendre accessible depuis la partie administrateur du site.
+
+Lien du trello : https://trello.com/b/AQJxIyEo/biblio
