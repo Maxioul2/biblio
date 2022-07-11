@@ -14,3 +14,6 @@ La page de statistiques est disponible à cette adresse : https://biblio-maxime.
 La présentation demandée par le manager est présente en format PowerPoint et en format PDF dans le dossier présentation.
 
 Lien du trello : https://trello.com/b/AQJxIyEo/biblio
+
+Edit :
+Le site manquait d'élements de design (CSS) et les vues n'étaient pas correctement séparées de la partie "Controleurs", c'est maintenant chose faite
