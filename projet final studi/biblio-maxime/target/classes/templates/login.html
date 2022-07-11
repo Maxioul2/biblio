@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'login')}">
+
+<body>
+
+<h2 style="text-align: center;">Connexion</h2>
+<br>
+
+<div class="form">
+  <form action="/loginServlet" method="post">
+    <div class="formItem">
+      <label for="email">E-mail : </label>
+      <input style="width: 100%" type="text" name="email" required>
+    </div>
+    <div class="formItem">
+      <label for="password">Mot de passe : </label>
+      <input style="width: 100%" type="password" name="password" required>
+    </div>
+    <br>
+    <div class="formItem">
+      <input style="display: block; margin: auto" type="submit" value="Connexion">
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

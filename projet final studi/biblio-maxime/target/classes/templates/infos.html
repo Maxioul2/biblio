@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'infos')}">
+
+<body>
+
+<div class="infos">
+  <div class="infosItem"><label>Nom : </label><span th:text="${name}"></span></div>
+  <div class="infosItem"><label>Prénom : </label><span th:text="${firstname}"></span></div>
+  <div class="infosItem"><label>E-mail : </label><span th:text="${mail}"></span></div>
+</div>
+<button onclick="window.location.href='/EditInfos'">Modifier les informations</button>
+</body>
+</html>

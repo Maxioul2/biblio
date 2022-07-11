@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'editInfos')}">
+
+<body>
+
+<form action="/EditInfosServlet" method="post">
+  <div class="formItem">
+    <label for="lastName">Nom : </label>
+    <input style="width: 100%" type="text" name="lastName" th:value="${name}" required>
+  </div>
+  <div class="formItem">
+    <label for="firstName">Prénom : </label>
+    <input style="width: 100%" type="text" name="firstName" th:value="${firstname}" required>
+  </div>
+  <div class="formItem">
+    <label for="email">E-mail : </label>
+    <input style="width: 100%" type="text" name="email" th:value="${mail}" required>
+  </div>
+  <div class="formItem">
+    <label for="password">Nouveau mot de passe : </label>
+    <input style="width: 100%" type="password" name="password" required>
+  </div>
+  <div class="formItem">
+    <label for="passwordConfirmation">Confirmation du mot de passe : </label>
+    <input style="width: 100%" type="password" name="passwordConfirmation" required>
+  </div>
+  <br>
+  <input style="display: block; margin: auto" type="submit" value="Valider les modifications">
+</form>
+
+</body>
+</html>

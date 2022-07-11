@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'stats')}">
+
+<body>
+
+<div class="stats">
+  <div class="statsItem">
+    <label>Nombre d'utilisateurs : </label><span th:text="${nb_users}"></span>
+  </div>
+  <div class="statsItem">
+    <label>Nombre de prêts : </label><span th:text="${nb_prets}"></span>
+  </div>
+</div>
+
+</body>
+</html>

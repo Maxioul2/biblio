@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'browse')}">
+
+<body>
+
+<div class="searchFilters">
+  <h2 style="text-align: center;">Bibliothèque</h2>
+  <h3>Recherche : </h3>
+  <form action="/browse" method="post">
+    <div class="searchFilter">
+      <label for="title">Titre : </label>
+      <input type="text" name="title" placeholder="Titre"/>
+    </div>
+    <div class="searchFilter">
+      <label for="author">Auteur : </label>
+      <input type="text" name="author" placeholder="Auteur"/>
+    </div>
+    <div class="searchFilter">
+      <label for="genre">Genre : </label>
+      <select name="genre">
+        <option value="">Genre</option>
+        <option value="Action">Action</option>
+        <option value="Aventure">Aventure</option>
+        <option value="Fantastique">Fantastique</option>
+        <option value="Horreur">Horreur</option>
+        <option value="Policier">Policier</option>
+        <option value="Romance">Romance</option>
+        <option value="Science-fiction">Science-Fiction</option>
+        <option value="Suspense">Suspense</option>
+        <option value="Tragédie">Tragédie</option>
+      </select>
+    </div>
+    <div class="searchFilter">
+      <label for="language">Langue : </label>
+      <select name="language">
+        <option value="">Langue</option>
+        <option value="Français">Français</option>
+        <option value="Anglais">Anglais</option>
+        <option value="Espagnol">Espagnol</option>
+        <option value="Italien">Italien</option>
+        <option value="Japonais">Japonais</option>
+      </select>
+    </div>
+    <input type="submit" name="submit" value="Lancer la recherche"/>
+  </form>
+</div>
+
+<div class="content">
+  <h3>Résultats : </h3>
+  <div th:each="book, state : ${books}">
+    <hr>
+    <h4 th:text="${book.titre}"></h4>
+    <p>ISBN : <span th:text="${book.isbn}"></span><br>Auteur : <span th:text="${book.auteur}"></span><br>Genre : <span th:text="${book.genre}"></span><br>Date de publication : <span th:text="${book.datePublication}"></span><br>Éditeur : <span th:text="${book.editeur}"></span></p>
+  </div>
+</div>
+
+</body>
+</html>

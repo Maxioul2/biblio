@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'prets')}">
+
+<body>
+
+<div class="content">
+  <h3>Prêts : </h3>
+  <div th:each="pret, state : ${prets}">
+    <hr>
+    <h4 th:text="${pret.livre.titre}"></h4>
+    <p>ISBN : <span th:text="${pret.livre.isbn}"></span><br>Auteur : <span th:text="${pret.livre.auteur}"></span><br>Genre : <span th:text="${pret.livre.genre}"></span><br>Date de publication : <span th:text="${pret.livre.datePublication}"></span><br>Éditeur : <span th:text="${pret.livre.editeur}"></span><br><b>Début du prêt : <span th:text="${pret.dateDebut}"></span></b><br><b>Fin du prêt : <span th:text="${pret.dateFin}"></span></b></p>
+    <p th:if="${pret.renouvele}"><b>Prêt renouvelé</b></p>
+    <div th:unless="${pret.renouvele}">
+      <form style="margin: 0;" action="/renouvelerPretServlet" method="post">
+        <input type="hidden" name="userId" th:value="${pret.userId}">
+        <input type="hidden" name="isbn" th:value="${pret.livre.isbn}">
+        <input type="submit" value="Renouveler le prêt">
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

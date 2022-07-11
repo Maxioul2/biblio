@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'register')}">
+
+<body>
+
+<h2 style="text-align: center;">Inscription</h2>
+<br>
+
+<div class="form">
+  <form action="/registerServlet" method="post">
+    <div class="formItem">
+      <label for="lastName">Nom : </label>
+      <input style="width: 100%" type="text" name="lastName" required>
+    </div>
+    <div class="formItem">
+      <label for="firstName">Prénom : </label>
+      <input style="width: 100%" type="text" name="firstName" required>
+    </div>
+    <div class="formItem">
+      <label for="email">E-mail : </label>
+      <input style="width: 100%" type="text" name="email" required>
+    </div>
+    <div class="formItem">
+      <label for="password">Mot de passe : </label>
+      <input style="width: 100%" type="password" name="password" required>
+    </div>
+    <div class="formItem">
+      <label for="passwordConfirmation">Confirmation du mot de passe : </label>
+      <input style="width: 100%" type="password" name="passwordConfirmation" required>
+    </div>
+    <br>
+    <input style="display: block; margin: auto" type="submit" value="Valider la création du compte">
+  </form>
+</div>
+
+</body>
+</html>
